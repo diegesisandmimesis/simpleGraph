@@ -1,6 +1,6 @@
 #charset "us-ascii"
 //
-// sample.t
+// dijkstraTest.t
 // Version 1.0
 // Copyright 2022 Diegesis & Mimesis
 //
@@ -48,11 +48,28 @@ gameMain:       GameMainDef
 		generateGraph();
 	}
 	generateGraph() {
-		local g;
+		local g, i, l;
 
 		g = new SimpleGraph();
-		g.addEdge('foo', 'bar');
+		g.addEdge('start', 'end');
+		g.insertLoop('foo', 'bar', 'start', 'end');
 		g.log();
+
+#ifdef SIMPLE_GRAPH_DIJKSTRA
+		"<.p>";
+		l = g.dijkstraPath('start', 'end');
+		for(i = 1; i <= l.length; i++) {
+			"<<l[i]>>\n ";
+		}
+
+		"<.p>";
+		"longest path = <<toString(g.longestPath())>>\n ";
+#else // SIMPLE_GRAPH_DIJKSTRA
+		"<.p>";
+		"The simpleGraph library was compiled without pathfinding.\n ";
+		"Re-compile with the SIMPLE_GRAPH_DIJKSTRA flag to enable it. ";
+		"<.p> ";
+#endif // SIMPLE_GRAPH_DIJKSTRA
 	}
 	showGoodbye() {}
 ;
