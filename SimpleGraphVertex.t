@@ -12,20 +12,35 @@ class SimpleGraphVertex: object
 	_edges = nil			// LookupTable of edges
 	_traverseFlag = nil		// used in pathfinding
 
+	// Constructor requires only the vertex ID
 	construct(v) {
 		self.id = v;
 	}
+
+	// Returns the hash table of edges.
 	getEdges() {
 		if(_edges == nil) _edges = new LookupTable();
 		return(_edges);
 	}
+
+	// Returns the edges as an array.  Values are instances of
+	// the edge class, NOT edge/vertex IDs.
 	edgeList() { return(getEdges().valsToList()); }
+
+	// Returns an array of the edge IDs.
 	edgeIDList() { return(getEdges().keysToList()); }
+
+	// Returns the edge matching the passed ID.
 	getEdge(id0) { return(getEdges()[id0]); }
+
+	// Set an entry in the edge hash table.  First arg is the edge ID,
+	// second is an instance of the edge class.
 	setEdge(id0, e) {
 		if(getEdge(id0)) return(nil);
 		getEdges()[id0] = e;
 		return(e);
 	}
+
+	// Removes the edge with the passed edge ID from the edge hash table.
 	removeEdge(id0) { getEdges().removeElement(id0); }
 ;

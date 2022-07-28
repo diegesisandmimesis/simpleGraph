@@ -28,17 +28,8 @@ versionInfo:    GameID
         desc = 'Demo game for the simpleGraph library. '
         version = '1.0'
         IFID = '12345'
-	showAbout() {
-		"This is a simple test game that demonstrates the features
-		of the simpleGraph library.
-		<.p>
-		In-game that's pretty much all there is to it.  Consult the
-		README.txt document distributed with the library source for
-		a quick summary of how to use the library in your own games.
-		<.p>
-		The library source is also extensively commented in a way
-		intended to make it as readable as possible. ";
-	}
+	// No ABOUT text because we're not an interactive game.
+	showAbout() {}
 ;
 
 // Game world only contains the bare minimum required to successfully compile
@@ -50,6 +41,8 @@ gameMain:       GameMainDef
 	generateGraph() {
 		local g;
 
+		// Just generate a simple two-vertex, one-edge graph
+		// and then log the results.
 		g = new SimpleGraph();
 		g.addEdge('foo', 'bar');
 		g.log();

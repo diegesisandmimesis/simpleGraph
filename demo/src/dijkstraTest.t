@@ -5,11 +5,11 @@
 // Copyright 2022 Diegesis & Mimesis
 //
 // This is a very simple demonstration "game" that illustrates the
-// functionality of the simpleGraph library
+// pathfinding of the simpleGraph library
 //
 // It can be compiled via the included makefile with
 //
-//	# t3make -f makefile.t3m
+//	# t3make -f dijkstraTest.t3m
 //
 // ...or the equivalent, depending on what TADS development environment
 // you're using.
@@ -23,22 +23,13 @@
 #include "simpleGraph.h"
 
 versionInfo:    GameID
-        name = 'simpleGraph Library Demo Game'
+        name = 'simpleGraph Library Pathfinding Demo'
         byline = 'Diegesis & Mimesis'
-        desc = 'Demo game for the simpleGraph library. '
+        desc = 'Pathfinding demo for the simpleGraph library. '
         version = '1.0'
         IFID = '12345'
-	showAbout() {
-		"This is a simple test game that demonstrates the features
-		of the simpleGraph library.
-		<.p>
-		In-game that's pretty much all there is to it.  Consult the
-		README.txt document distributed with the library source for
-		a quick summary of how to use the library in your own games.
-		<.p>
-		The library source is also extensively commented in a way
-		intended to make it as readable as possible. ";
-	}
+	// No ABOUT text because we're not interactive
+	showAbout() {}
 ;
 
 // Game world only contains the bare minimum required to successfully compile
@@ -50,21 +41,26 @@ gameMain:       GameMainDef
 	generateGraph() {
 		local g, i, l;
 
+		// Create a simple four vertex graph.  It will look like
+		// 	start <-> foo <-> bar <-> end
 		g = new SimpleGraph();
 		g.addEdge('start', 'end');
-		g.insertLoop('foo', 'bar', 'start', 'end');
+		g.insertEdge('foo', 'bar', 'start', 'end');
 		g.log();
 
 #ifdef SIMPLE_GRAPH_DIJKSTRA
+		// Find and log a path from "start" to "end".
 		"<.p>";
 		l = g.dijkstraPath('start', 'end');
 		for(i = 1; i <= l.length; i++) {
 			"<<l[i]>>\n ";
 		}
 
+		// Report the longest path across the graph.
 		"<.p>";
 		"longest path = <<toString(g.longestPath())>>\n ";
 #else // SIMPLE_GRAPH_DIJKSTRA
+		// Complain if we were compiled without pathfinding support.
 		"<.p>";
 		"The simpleGraph library was compiled without pathfinding.\n ";
 		"Re-compile with the SIMPLE_GRAPH_DIJKSTRA flag to enable it. ";

@@ -27,6 +27,7 @@ class SimpleGraph: object
 	// Returns all the vertices as a List
 	vertexList() { return(getVertices().valsToList()); }
 
+	// Internal-only convenience method
 	_addVertex(id, v) {
 		// Set the first vertex property if it hasn't already been set
 		if(_firstVertex == nil)
@@ -59,6 +60,7 @@ class SimpleGraph: object
 		clearDijkstra();
 	}
 
+	// Returns the hash table of edges
 	getEdges() {
 		if(_edges == nil) _edges = new LookupTable();
 		return(_edges);
@@ -88,7 +90,7 @@ class SimpleGraph: object
 	}
 
 	// Returns a list containing all the edges.
-	// That is, a list whose entires are instances of SimpleMapEdge
+	// That is, a list whose elements are instances of SimpleMapEdge
 	edgeList() { return(getEdges().valsToList()); }
 
 	// List all the edges on the given vertex
@@ -100,6 +102,7 @@ class SimpleGraph: object
 		return(v.edgeList());
 	}
 
+	// List all the edge IDs on the given vertex
 	vertexEdgeIDList(id) {
 		local v;
 
@@ -164,6 +167,8 @@ class SimpleGraph: object
 	_edgeID(id0, id1) {
 		return(id0 + ':' + id1);
 	}
+
+	// Return the edge between the two given vertices.
 	getEdge(id0, id1) {
 		local e;
 
@@ -171,8 +176,9 @@ class SimpleGraph: object
 		if(e) return(e);
 		return(getEdges()[_edgeID(id1, id0)]);
 	}
+
 	// Another convenience method, this time to remove v1 from v0's
-	// adjacency list
+	// edge list
 	_removeEdge(v0, v1) {
 		local v;
 
@@ -182,6 +188,7 @@ class SimpleGraph: object
 		clearDijkstra();
 		return(true);
 	}
+
 	// Remove an edge.  Since we're always an undirected graph, when
 	// we remove v0 -> v1 we always also remove v1 -> v0.
 	removeEdge(v0, v1) {
@@ -199,14 +206,15 @@ class SimpleGraph: object
 	// Stub method for when we're compiled without pathfinding
 	clearDijkstra() {}
 
+	// Returns the "first" vertex.
+	// The "first" vertex is what we use in traversals;  we assume it
+	// represents something like the room the player starts in.
+	// By default it's the first vertex added to the graph.
 	getFirstVertex() {
 		return(_firstVertex);
 	}
 
 	// Manually set the "first" vertex.
-	// The "first" vertex is what we use in traversals;  we assume it
-	// represents something like the room the player starts in.
-	// By default it's the first vertex added to the graph.
 	setFirstVertex(id) {
 		if(!getVertex(id))
 			return(nil);
@@ -215,7 +223,6 @@ class SimpleGraph: object
 
 		return(true);
 	}
-
 
 	// Insert a new vertex id into the edge v0 <-> v1, so
 	// v0 <-> v1 becomes v0 <-> id <-> v1
@@ -227,6 +234,7 @@ class SimpleGraph: object
 		addEdge(id, v1);
 		return(true);
 	}
+
 	// Remove the src vertex, adding any edges on src to dst
 	simplifyVertex(src, dst) {
 		local v0, v1;
@@ -244,6 +252,7 @@ class SimpleGraph: object
 		removeVertex(src);
 		return(true);
 	}
+
 	// Remove vertex id, connecting v0 and v1, so
 	//	v0 <-> id <-> v1
 	// becomes
@@ -257,11 +266,12 @@ class SimpleGraph: object
 		if(deleteVertex) removeVertex(id);
 		return(true);
 	}
-	// Insert a 2-node cyclic graph into the edge v0-v1.  So:
+
+	// Insert 2 connected vertices into the edge v0-v1.  So:
 	//	v0 <-> v1
 	// ...becomes...
 	//	v0 <-> id0 <-> id1 <-> v1
-	insertLoop(id0, id1, v0, v1) {
+	insertEdge(id0, id1, v0, v1) {
 		if(!removeEdge(v0, v1)) return(nil);
 		if(!getVertex(id0)) addVertex(id0);
 		if(!getVertex(id1)) addVertex(id1);
@@ -271,6 +281,7 @@ class SimpleGraph: object
 
 		return(true);
 	}
+
 	// Returns a new copy of this graph
 	clone() {
 		local g;
@@ -285,6 +296,9 @@ class SimpleGraph: object
 
 		return(g);
 	}
+
+	// Output all the vertices and their edges.
+	// Just a very rudimentary debugging tool.
 	log() {
 		"<.p>\n ";
 		vertexList().forEach(function(v) {

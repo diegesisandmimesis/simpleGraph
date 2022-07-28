@@ -2,6 +2,8 @@
 #include <adv3.h>
 #include <en_us.h>
 
+// This entire file is wrapped in a big #ifdef so the pathfinding logic
+// isn't compiled in if SIMPLE_GRAPH_DIJKSTRA isn't #defined.
 #ifdef SIMPLE_GRAPH_DIJKSTRA
 
 // Little utility class to handle data used in computing the hash used for
