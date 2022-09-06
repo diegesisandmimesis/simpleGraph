@@ -1,6 +1,6 @@
 name: Simple Graph Library
 source: simpleGraphModule.t
-source: SimpleGraph.t
-source: SimpleGraphDijkstra.t
-source: SimpleGraphEdge.t
-source: SimpleGraphVertex.t
+source: simpleGraph.t
+source: simpleGraphDijkstra.t
+source: simpleGraphEdge.t
+source: simpleGraphVertex.t
