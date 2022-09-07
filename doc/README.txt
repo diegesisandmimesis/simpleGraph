@@ -20,6 +20,80 @@ compiled when SIMPLE_GRAPH_DIJKSTRA is #defined, which it is by
 default in simpleGraph.h.
 
 
+USAGE
+
+	// Graph creation and manipulation
+	//
+	// Create a new, empty graph
+	local g = new SimpleGraph();
+
+	// Add a vertex.
+	g.addVertex('foo');
+
+	// Remove a vertex
+	g.removeVertex('foo');
+
+	// Add an edge.  Automagically creates the vertices if they don't
+	// exist.
+	g.addEdge('foo', 'bar');
+
+	// Remove an edge.
+	g.removeEdge('foo', 'bar');
+
+	// Insert a new vertex into the edge foo <-> bar, so
+	// foo <-> bar becomes foo <-> baz <-> bar.
+	g.insertVertex('baz', 'foo', 'bar');
+
+	// Remove the vertex foo, moving any edges on foo to bar
+	g.simplifyVertex('foo', 'bar');
+
+	// Remove the vertex baz and connect foo and bar, so
+	// foo <-> baz <-> bar becomes foo <-> bar
+	g.simplifyEdge('baz', 'foo', 'bar', true);
+
+	// Same as above, but only removes baz's edges (and doesn't
+	// delete baz itself):
+	g.simplifyEdge('baz', 'foo', 'bar');
+
+	// Insert baz <-> quux into foo <->bar, so
+	// foo <-> bar becomes foo <-> baz <-> quux <-> bar
+	g.insertEdge('baz', 'quux', 'foo', 'bar');
+
+	// Make a copy of the graph.
+	local c = g.clone();
+
+	//
+	// Informational methods
+	//
+	// Returns a list of vertex IDs.
+	l = g.vertexIDList();
+
+	// Returns a list of vertices.  The elements are instances of
+	// SimpleGraphVertex.
+	l = g.vertexList();
+
+	// Returns a list of edge IDs.  Each array element is itself a
+	// 2-element array consisting of the two vertex IDs.
+	l = g.edgeIDList();
+
+	// Returns a list of edges.  Each array element is itself a
+	// 2-element array consisting of two SimpleGraphVertex instances.
+	l = g.edgeList();
+
+
+	// Returns a list of all the edge IDs on the vertex foo
+	l = vertexEdgeList('foo');
+
+	// Returns a list of all the edges on the vertex foo.  Elements of
+	// the list are all instances of SimpleGraphVertex.
+	l = vertexEdgeIDList('foo');
+
+	//
+	// Debugging
+	//
+	// Output information about the graph.  Will include a list of
+	// all the vertex IDs and their associated edges.
+	g.log();
 
 
 LIBRARY CONTENTS

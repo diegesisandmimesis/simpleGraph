@@ -1,4 +1,33 @@
 #charset "us-ascii"
+//
+// simpleGraph.t
+//
+//	A library for handling simple undirected graphs in TADS3.
+//
+//	Sample usage:
+//
+//		// Create the graph.
+//		// Graph looks like:  nothing
+//		local g = new SimpleGraph();
+//
+//		// Add an edge, creating the vertices that don't already exist
+//		// Graph looks like:	foo --- bar
+//		g.addEdge('foo', 'bar');
+//
+//		// Create vertex baz and insert it between 'foo' and 'bar':
+//		//	foo --- baz --- baz
+//		g.insertVertex('baz', 'foo', 'bar');
+//
+//		// Add an edge between foo and bar (the original one was
+//		// replaced by insertVertex()):
+//		//	foo --- bar
+//		//	 \       /
+//		//        \     /
+//		//	   \   /
+//		//          baz
+//		g.addEdge('foo', 'bar');
+//	
+//
 #include <adv3.h>
 #include <en_us.h>
 
