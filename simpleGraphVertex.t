@@ -43,4 +43,9 @@ class SimpleGraphVertex: object
 
 	// Removes the edge with the passed edge ID from the edge hash table.
 	removeEdge(id0) { getEdges().removeElement(id0); }
+
+	// Returns the degree of the vertex
+	getDegree() {
+		return(edgeIDList().length);
+	}
 ;
