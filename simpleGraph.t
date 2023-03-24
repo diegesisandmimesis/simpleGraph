@@ -2,7 +2,7 @@
 //
 // simpleGraph.t
 //
-//	A library for handling simple undirected graphs in TADS3.
+//	A class for simple undirected graphs.
 //
 //	Sample usage:
 //
@@ -36,6 +36,9 @@
 // Abstract map graph class.
 // Our graphs are always undirected and we don't care about edge length.
 class SimpleGraph: object
+	vertexClass = SimpleGraphVertex
+	edgeClass = SimpleGraphEdge
+
 	_vertices = nil			// LookupTable of vertices
 	_edges = nil			// LookupTable of edges
 
@@ -71,7 +74,7 @@ class SimpleGraph: object
 	// Add a vertex with the given ID
 	addVertex(id) {
 		if(getVertex(id)) return(nil);
-		return(_addVertex(id, new SimpleGraphVertex(id)));
+		return(_addVertex(id, vertexClass.createInstance(id)));
 	}
 
 	// Returns the vertex with the given ID
@@ -145,7 +148,7 @@ class SimpleGraph: object
 	_createEdge(v0, v1) {
 		local e;
 
-		e = new SimpleGraphEdge(v0, v1);
+		e = edgeClass.createInstance(v0, v1);
 		getEdges()[_edgeID(v0, v1)] = e;
 
 		return(e);
@@ -338,4 +341,7 @@ class SimpleGraph: object
 		});
 		"<.p> ";
 	}
+
+	// Stub
+	longestPath() {}
 ;

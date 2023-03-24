@@ -22,18 +22,10 @@
 
 #include "simpleGraph.h"
 
-versionInfo:    GameID
-        name = 'simpleGraph Library Demo Game'
-        byline = 'Diegesis & Mimesis'
-        desc = 'Demo game for the simpleGraph library. '
-        version = '1.0'
-        IFID = '12345'
-	// No ABOUT text because we're not an interactive game.
-	showAbout() {}
-;
+// Game definition only contains the bare minimum required to successfully
+// compile because we never reach a prompt.
+versionInfo:    GameID;
 
-// Game world only contains the bare minimum required to successfully compile
-// because we never reach a prompt in it.
 gameMain:       GameMainDef
 	newGame() {
 		generateGraph();
@@ -47,5 +39,4 @@ gameMain:       GameMainDef
 		g.addEdge('foo', 'bar');
 		g.log();
 	}
-	showGoodbye() {}
 ;
