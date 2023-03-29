@@ -59,6 +59,8 @@ class SimpleGraph: object
 	// Returns all the vertices as a List
 	vertexList() { return(getVertices().valsToList()); }
 
+	order() { return(vertexIDList().length); }
+
 	// Internal-only convenience method
 	_addVertex(id, v) {
 		// Set the first vertex property if it hasn't already been set
@@ -66,7 +68,8 @@ class SimpleGraph: object
 			_firstVertex = id;
 
 		getVertices()[id] = v;
-		clearDijkstra();
+		//v.id = id;
+		updateGraph();
 
 		return(v);
 	}
@@ -89,7 +92,7 @@ class SimpleGraph: object
 			v.removeEdge(id);
 		});
 		getVertices().removeElement(id);
-		clearDijkstra();
+		updateGraph();
 	}
 
 	// Returns the hash table of edges
@@ -197,7 +200,7 @@ class SimpleGraph: object
 	// We don't do any disambiguation here, that's mostly done by using
 	// getEdge(), which checks both vertex orderings.
 	_edgeID(id0, id1) {
-		return(id0 + ':' + id1);
+		return(toString(id0) + ':' + toString(id1));
 	}
 
 	// Return the edge between the two given vertices.
@@ -217,7 +220,7 @@ class SimpleGraph: object
 		v = getVertex(v0);
 		if(!v) return(nil);
 		v.removeEdge(v1);
-		clearDijkstra();
+		updateGraph();
 		return(true);
 	}
 
@@ -236,7 +239,7 @@ class SimpleGraph: object
 	}
 
 	// Stub method for when we're compiled without pathfinding
-	clearDijkstra() {}
+	updateGraph() {}
 
 	// Returns the "first" vertex.
 	// The "first" vertex is what we use in traversals;  we assume it
@@ -333,10 +336,11 @@ class SimpleGraph: object
 	// Just a very rudimentary debugging tool.
 	log() {
 		"<.p>\n ";
+		"current graph state:\n ";
 		vertexList().forEach(function(v) {
-			"Vertex <q><<v.id>></q>\n ";
+			"\tvertex <q><<v.id>></q>\n ";
 			v.edgeIDList().forEach(function(o) {
-				"\t<<o>>\n ";
+				"\t\t<<o>>\n ";
 			});
 		});
 		"<.p> ";

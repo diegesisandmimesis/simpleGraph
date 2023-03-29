@@ -5,3 +5,5 @@ source: simpleGraphDirected.t
 source: simpleGraphDijkstra.t
 source: simpleGraphEdge.t
 source: simpleGraphVertex.t
+source: simpleGraphLaplacian.t
+source: simpleGraphCheeger.t

@@ -23,6 +23,11 @@ modify SimpleGraph
 	_dijkstraHash = nil		// hash for graph traversal
 	_longestPathLength = nil	// computed length of longest path
 
+	updateGraph() {
+		inherited();
+		clearDijkstra();
+	}
+
 	// Clear the hash and longest path, so they have to be
 	// recomputed if needed.
 	clearDijkstra() {
@@ -109,7 +114,7 @@ modify SimpleGraph
 				// on the other end has already been found to
 				// be closer.
 				alt = dHash[id] + 1;
-				if(alt < dHash[l[i]]) {
+				if(alt < toInteger(dHash[l[i]])) {
 					dHash[l[i]] = alt;
 					// Path back from edge vertex to
 					// this vertex.

@@ -11,11 +11,16 @@ class SimpleGraphVertex: object
 	id = nil			// vertex ID
 	_edges = nil			// LookupTable of edges
 	_traverseFlag = nil		// used in pathfinding
+	_data = nil			// user data for vertex
 
 	// Constructor requires only the vertex ID
-	construct(v) {
+	construct(v, d?) {
 		self.id = v;
+		_data = ((d != nil) ? d : nil);
 	}
+
+	getData() { return(_data); }
+	setData(v) { _data = v; }
 
 	// Returns the hash table of edges.
 	getEdges() {
@@ -48,4 +53,6 @@ class SimpleGraphVertex: object
 	getDegree() {
 		return(edgeIDList().length);
 	}
+
+	isAdjacent(id0) { return(getEdge(id0) != nil); }
 ;
