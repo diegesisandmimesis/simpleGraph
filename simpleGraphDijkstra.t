@@ -220,36 +220,6 @@ modify SimpleGraph
 
 		return(max);
 	}
-
-/*
-	getSubgraphs() {
-		local allVertices, current, r, subgraph, subgraphList,
-			unchecked, v;
-
-		subgraphList = new Vector();
-		unchecked = new Vector();
-		allVertices = new Vector(vertexList());
-		while(allVertices.length > 0) {
-			current = allVertices[1];
-			current.edgeIDList().forEach(function(o) {
-				v = getVertex(o);
-				unchecked.append(v);
-			});
-			subgraph = new Vector();
-			if(subgraph.indexOf(current) == nil)
-				subgraph.append(current);
-			while(unchecked.length > 0) {
-				subgraph.append(unchecked[1]);
-			}
-			
-			
-			allVertices.removeElementAt(1);
-			subgraphList.append(subgraph);
-		}
-
-		return(r);
-	}
-*/
 ;
 
 #endif // SIMPLE_GRAPH_DIJKSTRA
