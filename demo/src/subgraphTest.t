@@ -41,8 +41,43 @@ gameMain:       GameMainDef
 		g.addEdge('baz3', 'baz4');
 		//g.log();
 
-		g.generateSubgraphs().forEach(function(o) {
-			"<<toString(o)>>\n ";
-		});
+		_logSubgraphs(g);
+
+		// Connect the first two subgraphs
+		g.addEdge('foo2', 'bar1');
+
+		_logSubgraphs(g);
+
+		// And connect the last
+		g.addEdge('bar2', 'baz1');
+
+		_logSubgraphs(g);
+
+		g = new SimpleGraphDirected();
+		g.addEdge('foo1', 'foo2');
+		g.addEdge('foo2', 'foo1');
+		g.addEdge('foo2', 'foo3');
+		g.addEdge('foo3', 'foo2');
+		g.addEdge('bar1', 'bar2');
+		g.addEdge('bar2', 'bar1');
+		g.addEdge('bar2', 'bar3');
+		g.addEdge('bar3', 'bar2');
+
+		_logSubgraphs(g);
+	}
+
+	_logSubgraphs(g) {
+		local l;
+
+		"<.p>\nDisconnected subgraphs: \n";
+		
+		l = g.generateSubgraphs();
+		if(l.length > 1) {
+			l.forEach(function(o) {
+				"\t<<toString(o)>>\n ";
+			});
+		} else {
+			"No disconnected subgraphs.\n ";
+		}
 	}
 ;

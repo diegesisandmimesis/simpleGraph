@@ -22,7 +22,7 @@ modify SimpleGraph
 	//	[ [ foo1, foo2 ], [ bar1, bar2 ], [ baz1, baz2, baz3 ] ]
 	//
 	generateSubgraphs() {
-		local i, l, r, u;
+		local i, l, r, u, v;
 
 		// Vector for our return value.
 		r = new Vector();
@@ -47,9 +47,11 @@ modify SimpleGraph
 			// subgraph.
 			r.append(new Vector());
 
+			v = l[1];
+
 			// Add the first unchecked vertex to the "unvisited"
 			// list.
-			u.append(l[1]);
+			u.append(v);
 
 			// Loop as long as we have unvisited vertices.
 			while(u.length > 0) {
@@ -92,6 +94,9 @@ modify SimpleGraph
 				// list.
 				u.removeElementAt(1);
 			}
+
+			if((i = l.indexOf(v)) != nil)
+				l.removeElementAt(i);
 		}
 
 		// Return the result.
