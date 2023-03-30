@@ -346,6 +346,8 @@ class SimpleGraph: object
 		"<.p> ";
 	}
 
-	// Stub
+	// Stubs
+	generateNextHopCache() {}
 	longestPath() {}
+	getSubgraphs() {}
 ;

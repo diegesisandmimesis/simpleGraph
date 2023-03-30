@@ -5,6 +5,9 @@
 // Include Dijkstra pathfinding logic
 #define SIMPLE_GRAPH_DIJKSTRA
 
+// Enable caching of pathfinding data
+//#define SIMPLEGRAPH_DIJKSTRA_CACHE
+
 // Include logic for computing the Laplacian matrix for the graph
 //#define SIMPLE_GRAPH_LAPLACIAN
 

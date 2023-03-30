@@ -2,6 +2,8 @@
 #include <adv3.h>
 #include <en_us.h>
 
+#include "simpleGraph.h"
+
 // This entire file is wrapped in a big #ifdef so the pathfinding logic
 // isn't compiled in if SIMPLE_GRAPH_DIJKSTRA isn't #defined.
 #ifdef SIMPLE_GRAPH_DIJKSTRA
@@ -218,6 +220,36 @@ modify SimpleGraph
 
 		return(max);
 	}
+
+/*
+	getSubgraphs() {
+		local allVertices, current, r, subgraph, subgraphList,
+			unchecked, v;
+
+		subgraphList = new Vector();
+		unchecked = new Vector();
+		allVertices = new Vector(vertexList());
+		while(allVertices.length > 0) {
+			current = allVertices[1];
+			current.edgeIDList().forEach(function(o) {
+				v = getVertex(o);
+				unchecked.append(v);
+			});
+			subgraph = new Vector();
+			if(subgraph.indexOf(current) == nil)
+				subgraph.append(current);
+			while(unchecked.length > 0) {
+				subgraph.append(unchecked[1]);
+			}
+			
+			
+			allVertices.removeElementAt(1);
+			subgraphList.append(subgraph);
+		}
+
+		return(r);
+	}
+*/
 ;
 
 #endif // SIMPLE_GRAPH_DIJKSTRA

@@ -7,3 +7,4 @@ source: simpleGraphEdge.t
 source: simpleGraphVertex.t
 source: simpleGraphLaplacian.t
 source: simpleGraphCheeger.t
+source: simpleGraphNextHopCache.t
