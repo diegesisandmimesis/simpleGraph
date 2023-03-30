@@ -39,9 +39,9 @@ gameMain:       GameMainDef
 		g.addEdge('baz1', 'baz2');
 		g.addEdge('baz2', 'baz3');
 		g.addEdge('baz3', 'baz4');
-		g.log();
+		//g.log();
 
-		g.getSubgraphs().forEach(function(o) {
+		g.generateSubgraphs().forEach(function(o) {
 			"<<toString(o)>>\n ";
 		});
 	}

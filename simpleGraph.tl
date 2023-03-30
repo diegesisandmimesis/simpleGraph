@@ -8,3 +8,4 @@ source: simpleGraphVertex.t
 source: simpleGraphLaplacian.t
 source: simpleGraphCheeger.t
 source: simpleGraphNextHopCache.t
+source: simpleGraphSubgraph.t

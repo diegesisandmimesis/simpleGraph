@@ -349,5 +349,5 @@ class SimpleGraph: object
 	// Stubs
 	generateNextHopCache() {}
 	longestPath() {}
-	getSubgraphs() {}
+	generateSubgraphs() {}
 ;
