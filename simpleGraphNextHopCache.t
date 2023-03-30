@@ -66,6 +66,12 @@ modify SimpleGraph
 		});
 	}
 
+	clearNextHopCache() {
+		vertexList().forEach(function(o) {
+			o.clearNextHop();
+		});
+	}
+
 	// Return the next hop.  Broken out as a separate method to make
 	// it easier for derived classes to do fancy things here.
 	fetchNextHop(v0, v1) { return(v0.getNextHop(v1.id)); }
