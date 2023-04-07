@@ -17,6 +17,8 @@
 #include "simpleGraph.h"
 
 class SimpleGraphDirected: SimpleGraph
+	edgeClass = SimpleGraphEdgeDirected
+
 	addEdge(v0, v1, dontAddVertices?) {
 		local e;
 
@@ -41,4 +43,8 @@ class SimpleGraphDirected: SimpleGraph
 
 		return(true);
 	}
+;
+
+class SimpleGraphEdgeDirected: SimpleGraphEdge
+	matchVertices(v0, v1) { return((_vertex0 == v0) && (_vertex1 == v1)); }
 ;

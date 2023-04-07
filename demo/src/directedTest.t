@@ -33,7 +33,7 @@ gameMain:       GameMainDef
 	generateGraph() {
 		local g;
 
-		// Just generate a simple two-vertex, one-edge graph
+		// Just generate a simple three-vertex, two-edge graph
 		// and then log the results.
 		g = new SimpleGraphDirected();
 		g.addEdge('foo', 'bar');
