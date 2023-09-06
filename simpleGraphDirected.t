@@ -19,16 +19,15 @@
 class SimpleGraphDirected: SimpleGraph
 	edgeClass = SimpleGraphEdgeDirected
 
-	addEdge(v0, v1, dontAddVertices?) {
-		local e;
-
+	addEdge(v0, v1, dontAddVertices?, e?) {
 		if(dontAddVertices != true) {
 			if(!getVertex(v0)) addVertex(v0);
 			if(!getVertex(v1)) addVertex(v1);
 		}
 
-		e = getEdge(v0, v1);
-		if(!e)
+		if(e == nil)
+			e = getEdge(v0, v1);
+		if(e == nil)
 			e = _createEdge(v0, v1);
 
 		_addEdge(v0, v1, e);

@@ -58,4 +58,15 @@ class SimpleGraphVertex: object
 	}
 
 	isAdjacent(id0) { return(getEdge(id0) != nil); }
+
+	// Called at preinit and only used for vertices declared with the
+	// the +[declaration] syntax.
+	initializeVertex() {
+		// Make sure our lexical parent is a graph.
+		if((location == nil) || !location.ofKind(SimpleGraph))
+			return;
+
+		// Add ourselves.
+		location._addVertex(id, self);
+	}
 ;

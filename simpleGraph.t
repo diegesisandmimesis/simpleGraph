@@ -26,6 +26,24 @@
 //		//	   \   /
 //		//          baz
 //		g.addEdge('foo', 'bar');
+//
+//
+//	Static declaration equivalent to the above:
+//
+//		myGraph: SimpleGraph;
+//		+SimpleGraphVertex 'foo';
+//		+SimpleGraphVertex 'bar';
+//		+SimpleGraphVertex 'baz';
+//		+SimpleGraphEdge 'foo' 'bar';
+//		+SimpleGraphEdge 'foo' 'baz';
+//		+SimpleGraphEdge 'bar' 'baz';
+//
+//	...or more concisely...
+//
+//		myGraph: SimpleGraph;
+//		+SimpleGraphEdge 'foo' 'bar';
+//		+SimpleGraphEdge 'foo' 'baz';
+//		+SimpleGraphEdge 'bar' 'baz';
 //	
 //
 #include <adv3.h>
@@ -36,7 +54,10 @@
 // Abstract map graph class.
 // Our graphs are always undirected and we don't care about edge length.
 class SimpleGraph: object
+	id = nil
+
 	vertexClass = SimpleGraphVertex
+
 	edgeClass = SimpleGraphEdge
 
 	_vertices = nil			// LookupTable of vertices
@@ -174,9 +195,7 @@ class SimpleGraph: object
 	// add an edge we're really adding two:  v0 -> v1 and v1 -> v0.
 	// Third arg is an optional boolean.  If true, vertices that don't
 	// already exist won't be added.
-	addEdge(v0, v1, dontAddVertices?) {
-		local e;
-
+	addEdge(v0, v1, dontAddVertices?, e?) {
 		// Create any vertices that don't exist unless we're explicitly
 		// told not to
 		if(dontAddVertices != true) {
@@ -185,8 +204,9 @@ class SimpleGraph: object
 		}
 
 		// See if the edge already exists.  If it doesn't, create it
-		e = getEdge(v0, v1);
-		if(!e)
+		if(e == nil)
+			e = getEdge(v0, v1);
+		if(e == nil)
 			e = _createEdge(v0, v1);
 
 		// Update the vertices to know about the new edge

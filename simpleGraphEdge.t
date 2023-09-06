@@ -8,6 +8,9 @@
 // We assume that graphs are always undirected, so we treat
 // the edge foo -> bar the same as bar -> foo.
 class SimpleGraphEdge: object
+	id0 = nil
+	id1 = nil
+
 	// Because we assume the graph is undirected which vertex is _vertex0
 	// and which is _vertex1 is arbitrary
 	_vertex0 = nil
@@ -56,4 +59,32 @@ class SimpleGraphEdge: object
 	// wart provided entirely to support possible future developments.
 	getLength() { return(_length); }
 	setLength(v) { _length = v; }
+
+	// Called at preinit and only used for edges declared via the +[decl]
+	// syntax.
+	initializeEdge() {
+		local v;
+
+		// If we don't have a location we've already failed.
+		if(location == nil)
+			return;
+
+		if(location.ofKind(SimpleGraph)) {
+			// If we're "owned" by the graph declaration, then
+			// we need both vertex IDs.
+			location.addEdge(id0, id1, nil, self);
+		} else if(location.ofKind(SimpleGraphVertex)) {
+			// If we're "owned" by a vertex, then we
+			// only need one vertex ID (the vertex we're
+			// not "owned" by).
+			v = location;
+			if((v.location == nil)
+				|| !v.location.ofKind(SimpleGraph))
+				return;
+
+			// Order of arguments is important here,
+			// because the graph might be directed.
+			v.location.addEdge(v.id, id0, nil, self);
+		}
+	}
 ;
