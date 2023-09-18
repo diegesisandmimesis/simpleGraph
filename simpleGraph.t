@@ -203,17 +203,26 @@ class SimpleGraph: object
 			if(!getVertex(v1)) addVertex(v1);
 		}
 
-		// See if the edge already exists.  If it doesn't, create it
-		if(e == nil)
-			e = getEdge(v0, v1);
-		if(e == nil)
-			e = _createEdge(v0, v1);
+		// Create the edge if it doesn't already exist.
+		if((e = initEdge(v0, v1)) == nil)
+			return(nil);
 
 		// Update the vertices to know about the new edge
 		_addEdge(v0, v1, e);
 		_addEdge(v1, v0, e);
 
 		return(true);
+	}
+
+	initEdge(v0, v1) {
+		local e;
+
+		if((e = getEdge(v0, v1)) != nil)
+			return(e);
+		if((e = _createEdge(v0, v1)) != nil)
+			return(e);
+
+		return(nil);
 	}
 
 	// The edgeID is just the key we use in the LookupTable of edges.
