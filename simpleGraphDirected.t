@@ -19,7 +19,7 @@
 class SimpleGraphDirected: SimpleGraph
 	edgeClass = SimpleGraphEdgeDirected
 
-	addEdge(v0, v1, dontAddVertices?, e?) {
+	addEdge(v0, v1, dontAddVertices?, e?, l?) {
 		if(dontAddVertices != true) {
 			if(!getVertex(v0)) addVertex(v0);
 			if(!getVertex(v1)) addVertex(v1);
@@ -28,11 +28,17 @@ class SimpleGraphDirected: SimpleGraph
 		if(e == nil)
 			e = getEdge(v0, v1);
 		if(e == nil)
-			e = _createEdge(v0, v1);
+			e = _createEdge(v0, v1, l);
 
 		_addEdge(v0, v1, e);
 
 		return(true);
+	}
+
+	// By default SimpleGraph checks for id1->id0 if it doesn't
+	// find id0->id1, which we don't want in a directed graph.
+	getEdge(id0, id1) {
+		return(getEdges()[_edgeID(id0, id1)]);
 	}
 
 	removeEdge(v0, v1) {

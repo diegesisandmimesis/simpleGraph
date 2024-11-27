@@ -25,9 +25,10 @@ class SimpleGraphEdge: object
 	_length = 1
 
 	// Constructor requires two vertex IDs as arguments
-	construct(v0, v1) {
+	construct(v0, v1, l?) {
 		_vertex0 = v0;
 		_vertex1 = v1;
+		_length = ((l != nil) ? l : 1);
 	}
 
 	// Returns our vertices as a 2-element array.
@@ -82,9 +83,16 @@ class SimpleGraphEdge: object
 				|| !v.location.ofKind(SimpleGraph))
 				return;
 
+			_vertex0 = v;
+			id0 = v.id;
+
+			if(_vertex1 && _vertex1.ofKind(SimpleGraphVertex))
+				id1 = _vertex1.id;
+
+			//v.location.addEdge(self);
 			// Order of arguments is important here,
 			// because the graph might be directed.
-			v.location.addEdge(v.id, id0, nil, self);
+			v.location.addEdge(id0, id1, nil, self);
 		}
 	}
 ;

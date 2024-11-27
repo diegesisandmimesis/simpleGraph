@@ -169,10 +169,10 @@ class SimpleGraph: object
 
 	// Create a new SimpleGraphEdge instance and add it to the graph's
 	// table of edges.
-	_createEdge(v0, v1) {
+	_createEdge(v0, v1, l?) {
 		local e;
 
-		e = edgeClass.createInstance(v0, v1);
+		e = edgeClass.createInstance(v0, v1, l);
 		getEdges()[_edgeID(v0, v1)] = e;
 
 		return(e);
@@ -183,8 +183,7 @@ class SimpleGraph: object
 	_addEdge(v0, v1, e) {
 		local v;
 
-		v = getVertex(v0);
-		if(!v)
+		if((v = getVertex(v0)) == nil)
 			return(nil);
 
 		v.setEdge(v1, e);
@@ -195,7 +194,7 @@ class SimpleGraph: object
 	// add an edge we're really adding two:  v0 -> v1 and v1 -> v0.
 	// Third arg is an optional boolean.  If true, vertices that don't
 	// already exist won't be added.
-	addEdge(v0, v1, dontAddVertices?, e?) {
+	addEdge(v0, v1, dontAddVertices?, e?, l?) {
 		// Create any vertices that don't exist unless we're explicitly
 		// told not to
 		if(dontAddVertices != true) {
@@ -204,7 +203,7 @@ class SimpleGraph: object
 		}
 
 		// Create the edge if it doesn't already exist.
-		if((e = initEdge(v0, v1)) == nil)
+		if((e == nil) && (e = initEdge(v0, v1, l)) == nil)
 			return(nil);
 
 		// Update the vertices to know about the new edge
@@ -214,15 +213,15 @@ class SimpleGraph: object
 		return(true);
 	}
 
-	initEdge(v0, v1) {
+	initEdge(v0, v1, l?) {
 		local e;
 
 		if((e = getEdge(v0, v1)) != nil)
 			return(e);
-		if((e = _createEdge(v0, v1)) != nil)
-			return(e);
+		if((e = _createEdge(v0, v1, l)) == nil)
+			return(nil);
 
-		return(nil);
+		return(e);
 	}
 
 	// The edgeID is just the key we use in the LookupTable of edges.
@@ -364,12 +363,15 @@ class SimpleGraph: object
 	// Output all the vertices and their edges.
 	// Just a very rudimentary debugging tool.
 	log() {
+		local e;
+
 		"<.p>\n ";
 		"current graph state:\n ";
 		vertexList().forEach(function(v) {
 			"\tvertex <q><<v.id>></q>\n ";
 			v.edgeIDList().forEach(function(o) {
-				"\t\t<<o>>\n ";
+				e = getEdge(v.id, o);
+				"\t\t<<o>>: <<toString(e.getLength())>>\n ";
 			});
 		});
 		"<.p> ";
